@@ -70,11 +70,39 @@ export const WovenLightHero = () => {
           custom={headline.length}
           initial={{ opacity: 0, y: 30 }}
           animate={textControls}
-          className={`mx-auto mt-6 max-w-xl text-2xl font-medium tracking-widest uppercase transition-colors duration-700 ${isDark ? 'text-slate-300' : 'text-slate-600'}`}
+          className={`mx-auto mt-4 max-w-xl text-xl md:text-2xl font-bold tracking-widest uppercase transition-colors duration-700 ${isDark ? 'text-[var(--accent)]' : 'text-[var(--accent)]'}`}
           style={{ fontFamily: "'Inter', sans-serif" }}
         >
           Software Engineer
         </motion.p>
+
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 2.2, duration: 1 }}
+          className={`mx-auto mt-4 max-w-2xl text-sm md:text-base font-medium opacity-70 transition-colors duration-700 ${isDark ? 'text-slate-300' : 'text-slate-700'}`}
+        >
+          Full Stack & Flutter Developer specializing in high-performance web applications, cross-platform mobile apps, and RESTful API engineering.
+        </motion.p>
+
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={buttonControls}
+          className="flex flex-wrap justify-center gap-4 mt-8"
+        >
+          <a 
+            href="#portfolio" 
+            className="bg-[var(--accent)] text-white px-8 py-3.5 rounded-full font-black text-xs uppercase tracking-widest hover:scale-105 hover:shadow-[0_0_30px_rgba(255,77,77,0.5)] transition-all duration-300"
+          >
+            View Projects
+          </a>
+          <a 
+            href="#contact" 
+            className="glass border border-white/20 px-8 py-3.5 rounded-full font-black text-xs uppercase tracking-widest hover:border-[var(--accent)] hover:text-[var(--accent)] transition-all duration-300"
+          >
+            Get In Touch
+          </a>
+        </motion.div>
       </div>
     </div>
   );

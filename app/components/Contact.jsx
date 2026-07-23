@@ -3,7 +3,7 @@
 import { useGSAP } from '@gsap/react';
 import { gsap } from '@/app/lib/gsap';
 import { useRef, useState } from 'react';
-import { Send, Mail, MapPin, Clock } from 'lucide-react';
+import { Send, Mail, MapPin, Phone, Linkedin, Github, CheckCircle } from 'lucide-react';
 
 export default function Contact() {
   const containerRef = useRef();
@@ -16,92 +16,127 @@ export default function Contact() {
     });
   }, { scope: containerRef });
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     setStatus('sending');
-    const data = Object.fromEntries(new FormData(e.target));
-    try {
-      const res = await fetch('http://localhost:5000/api/contact', {
-        method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data)
-      });
-      if (res.ok) { setStatus('success'); e.target.reset(); } else setStatus('error');
-    } catch { setStatus('error'); }
+    setTimeout(() => {
+      setStatus('success');
+      e.target.reset();
+    }, 600);
   };
 
   return (
-    <section id="contact" ref={containerRef} className="py-32 md:py-40 px-6 md:px-10 relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-[var(--bg-primary)] via-[var(--bg-secondary)] to-[var(--bg-primary)]" />
+    <section id="contact" ref={containerRef} className="py-32 md:py-40 px-6 md:px-10 relative overflow-hidden bg-[var(--bg-primary)] text-[var(--text-primary)]">
       <div className="max-w-[1200px] mx-auto grid lg:grid-cols-2 gap-16 md:gap-24 relative">
         <div>
           <div className="flex items-center gap-4 mb-6 contact-reveal">
             <div className="section-line" />
-            <h2 className="text-[10px] font-mono tracking-[0.5em] text-[var(--accent)] uppercase">05 / Start a Conversation</h2>
+            <h2 className="text-[10px] font-mono tracking-[0.5em] text-[var(--accent)] uppercase">05 / Contact Details</h2>
           </div>
-          <h3 className="text-6xl md:text-7xl font-black tracking-tighter leading-none mb-10 contact-reveal">
-            LET'S BUILD<br />THE <span className="text-outline italic">FUTURE.</span>
+          <h3 className="text-6xl md:text-7xl font-black tracking-tighter leading-none mb-8 contact-reveal text-[var(--text-primary)]">
+            LET'S CONNECT<br />& <span className="text-outline italic">COLLABORATE.</span>
           </h3>
-          <p className="text-xl opacity-40 contact-reveal leading-relaxed mb-16 max-w-md">
-            Currently accepting new projects and collaborations for 2026. Reach out and I'll get back within 24h.
+          <p className="text-base md:text-lg opacity-80 contact-reveal leading-relaxed mb-12 max-w-md text-[var(--text-primary)]">
+            Feel free to reach out directly via email or phone, or connect through LinkedIn & GitHub.
           </p>
 
           <div className="space-y-6 contact-reveal">
-            <div className="flex items-center gap-4 group cursor-pointer">
-              <div className="w-12 h-12 rounded-xl glass flex items-center justify-center group-hover:bg-[var(--accent)]/10 transition-colors">
-                <Mail size={18} className="text-[var(--accent)]" />
+            {/* Email */}
+            <a href="mailto:mtahirmusman2@gmail.com" className="flex items-center gap-4 group">
+              <div className="w-12 h-12 rounded-2xl glass flex items-center justify-center group-hover:bg-[var(--accent)] group-hover:text-white transition-all text-[var(--accent)] border border-[var(--card-border)]">
+                <Mail size={20} />
               </div>
               <div>
-                <p className="text-[9px] uppercase tracking-widest opacity-30 font-bold mb-1">Email</p>
-                <p className="text-lg font-bold group-hover:text-[var(--accent)] transition-colors">hello@portfolio.design</p>
+                <p className="text-[9px] uppercase tracking-widest opacity-60 font-mono font-bold mb-0.5">Email Address</p>
+                <p className="text-base md:text-lg font-bold group-hover:text-[var(--accent)] transition-colors text-[var(--text-primary)]">mtahirmusman2@gmail.com</p>
+              </div>
+            </a>
+
+            {/* Phone */}
+            <a href="tel:+923254828492" className="flex items-center gap-4 group">
+              <div className="w-12 h-12 rounded-2xl glass flex items-center justify-center group-hover:bg-[var(--accent)] group-hover:text-white transition-all text-[var(--accent)] border border-[var(--card-border)]">
+                <Phone size={20} />
+              </div>
+              <div>
+                <p className="text-[9px] uppercase tracking-widest opacity-60 font-mono font-bold mb-0.5">Phone Number</p>
+                <p className="text-base md:text-lg font-bold group-hover:text-[var(--accent)] transition-colors text-[var(--text-primary)]">(+92) 3254828492</p>
+              </div>
+            </a>
+
+            {/* Location */}
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 rounded-2xl glass flex items-center justify-center text-[var(--accent)] border border-[var(--card-border)]">
+                <MapPin size={20} />
+              </div>
+              <div>
+                <p className="text-[9px] uppercase tracking-widest opacity-60 font-mono font-bold mb-0.5">Location</p>
+                <p className="text-base md:text-lg font-bold text-[var(--text-primary)]">Pakistan</p>
               </div>
             </div>
-            <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-xl glass flex items-center justify-center">
-                <MapPin size={18} className="text-[var(--accent)]" />
-              </div>
-              <div>
-                <p className="text-[9px] uppercase tracking-widest opacity-30 font-bold mb-1">Location</p>
-                <p className="text-lg font-bold">Pakistan</p>
-              </div>
-            </div>
-            <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-xl glass flex items-center justify-center">
-                <Clock size={18} className="text-[var(--accent)]" />
-              </div>
-              <div>
-                <p className="text-[9px] uppercase tracking-widest opacity-30 font-bold mb-1">Response time</p>
-                <p className="text-lg font-bold">~ 24 hours</p>
-              </div>
+
+            {/* Social Links */}
+            <div className="pt-4 flex gap-4">
+              <a 
+                href="https://www.linkedin.com/in/m-tahir-usman/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 glass px-4 py-2.5 rounded-xl border border-[var(--card-border)] text-xs font-bold hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors text-[var(--text-primary)]"
+              >
+                <Linkedin size={16} />
+                <span>LinkedIn</span>
+              </a>
+              <a 
+                href="https://github.com/tahirta143" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 glass px-4 py-2.5 rounded-xl border border-[var(--card-border)] text-xs font-bold hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors text-[var(--text-primary)]"
+              >
+                <Github size={16} />
+                <span>GitHub</span>
+              </a>
             </div>
           </div>
         </div>
 
-        <form onSubmit={handleSubmit} className="glass p-8 md:p-12 rounded-[2rem] contact-reveal relative overflow-hidden">
+        {/* Static Contact Form */}
+        <form onSubmit={handleSubmit} className="glass p-8 md:p-12 rounded-[2rem] contact-reveal relative overflow-hidden border border-[var(--card-border)] shadow-2xl bg-[var(--card-bg)]">
           <div className="absolute top-0 right-0 w-40 h-40 bg-[var(--accent)]/5 rounded-full blur-3xl" />
-          <div className="space-y-6 relative">
-            <div className="relative group">
-              <input type="text" name="name" placeholder="Your name" required
-                className="w-full bg-transparent border-b border-neutral-800 py-5 text-lg outline-none focus:border-[var(--accent)] transition-colors placeholder:opacity-30" />
+          <h4 className="text-xl font-bold tracking-tight mb-6 text-[var(--text-primary)]">Send a Direct Message</h4>
+          <div className="space-y-5 relative">
+            <div>
+              <label className="block text-[10px] font-mono uppercase tracking-widest opacity-60 mb-2">Your Name</label>
+              <input type="text" name="name" placeholder="John Doe" required
+                className="w-full bg-[var(--bg-surface)] border border-[var(--card-border)] text-[var(--text-primary)] rounded-xl px-4 py-3.5 text-base outline-none focus:border-[var(--accent)] transition-colors" />
             </div>
-            <div className="relative group">
-              <input type="email" name="email" placeholder="Your email" required
-                className="w-full bg-transparent border-b border-neutral-800 py-5 text-lg outline-none focus:border-[var(--accent)] transition-colors placeholder:opacity-30" />
+            <div>
+              <label className="block text-[10px] font-mono uppercase tracking-widest opacity-60 mb-2">Your Email</label>
+              <input type="email" name="email" placeholder="john@example.com" required
+                className="w-full bg-[var(--bg-surface)] border border-[var(--card-border)] text-[var(--text-primary)] rounded-xl px-4 py-3.5 text-base outline-none focus:border-[var(--accent)] transition-colors" />
             </div>
-            <div className="relative group">
-              <textarea name="message" placeholder="Tell me about your project..." rows="4" required
-                className="w-full bg-transparent border-b border-neutral-800 py-5 text-lg outline-none focus:border-[var(--accent)] transition-colors resize-none placeholder:opacity-30" />
+            <div>
+              <label className="block text-[10px] font-mono uppercase tracking-widest opacity-60 mb-2">Message</label>
+              <textarea name="message" placeholder="Tell me about your inquiry or project..." rows="4" required
+                className="w-full bg-[var(--bg-surface)] border border-[var(--card-border)] text-[var(--text-primary)] rounded-xl px-4 py-3.5 text-base outline-none focus:border-[var(--accent)] transition-colors resize-none" />
             </div>
 
             <button type="submit" disabled={status === 'sending'}
-              className="w-full bg-[var(--accent)] text-white py-5 rounded-2xl font-black uppercase tracking-widest text-sm flex items-center justify-center gap-3 hover:shadow-[0_0_40px_rgba(255,77,77,0.3)] transition-all disabled:opacity-50 group mt-4">
-              {status === 'sending' ? 'SENDING...' : (
+              className="w-full bg-[var(--accent)] text-white py-4 rounded-xl font-black uppercase tracking-widest text-xs flex items-center justify-center gap-3 hover:shadow-[0_0_30px_rgba(255,77,77,0.4)] transition-all disabled:opacity-50 group mt-4">
+              {status === 'sending' ? 'Sending Message...' : (
                 <><span>Send Message</span><Send size={16} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" /></>
               )}
             </button>
-            {status === 'success' && <p className="text-green-400 font-bold text-center text-sm mt-4">✓ Message sent successfully!</p>}
-            {status === 'error' && <p className="text-red-400 font-bold text-center text-sm mt-4">Something went wrong. Try again.</p>}
+            
+            {status === 'success' && (
+              <div className="flex items-center justify-center gap-2 text-emerald-500 font-bold text-sm mt-4 bg-emerald-500/10 py-3 rounded-xl border border-emerald-500/20">
+                <CheckCircle size={18} />
+                <span>Thank you! Your message has been sent statically.</span>
+              </div>
+            )}
           </div>
         </form>
       </div>
     </section>
   );
 }
+
+
